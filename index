@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Home</title>
+<link href="style/index-layout.css" rel="stylesheet" type="text/css" />
+<link href="style/homepage-layout.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body oncontextmenu="return false">
+
+<!--right-->
+<div id="body">
+<div id="left">
+
+<br/><br />
+
+
+</div></div>
+<?php
+      require_once 'conn.php';
+           $query = mysqli_query($conn, "SELECT * FROM farmers_asso_13");
+            $address = array();
+?>  
+    <div style = "text-align:center">
+    <h1 style="font-size:60px;" >Farmers Association of Caraga</h1>
+       <hr style="border-top:1px dotted #ccc;"/> 
+</div>
+
+    
+    
+    <form class="form-inline" method="POST" action="view.php">
+				<div class="input-group col-md-12">
+					<input type="text" class="form-control" placeholder="Search PO Old name" name="keyword" required="required"/>
+					<span class="input-group-btn">
+                        <button class="btn btn-primary" name="Search" > Search<span class="glyphicon glyphicon-search"></span></button>
+					</span>
+				</div>
+        
+    <table border="1">
+      <thead>
+        <tr>
+          <th>PO Old Name</th>
+          <th>PO New Name</th>
+          <th>PO Address</th>
+          <th>PO President</th>
+          <th>CBFM No</th>
+          <th>CBFM Area</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <?php
+          
+              
+          while($row = mysqli_fetch_assoc($query) ){
+            $address[]= $row;
+           //   echo "$row";
+              echo
+            "<tr>
+              <td>{$row['PO_Oldname']}</td>
+              <td>{$row['PO_Newname']}</td>
+              <td>{$row['PO_Location']}</td>
+              <td>{$row['PO_President']}</td>
+              <td>{$row['CBFM_no']}</td> 
+              <td>{$row['CBFM_area']}</td>
+            </tr>";
+          }
+        
+        
+        ?>
+      </tbody>
+    </table>
+    </form>
+    
+    
+
+     <?php mysqli_close($conn); 
+    ?>
+<br/><br/>
+
+</body>
+</html>
